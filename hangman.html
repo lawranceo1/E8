@@ -2,6 +2,14 @@
 <html>
 
 <body>
+    <p id='definition'></p><br><br>
+    <p>Score:</p>
+    <p id='score'></p>
+    <input type=button id='reset' value='Reset Game' onclick=resetGame()><br><br>
+
+
+
+
     <img src='hangmanimages/start.png' id='hangman' width=300px height=383px>
     <div id='solutionspace'></div>
 
@@ -29,9 +37,11 @@
 
         word = words[Math.floor(Math.random() * ((words.length - 1) + 1))]
 
-        console.log(word)
-        
-        document.write(word[1]);
+        document.getElementById('definition').innerHTML = word[1]
+
+
+
+
 
         let lives = 5;
         let hangmanImage = document.getElementById('hangman')
@@ -39,6 +49,8 @@
         let wordLength = word[0].length;
         let correctLetters = 0;
         let buttons = document.getElementById('buttondiv')
+        let score = 0
+
 
         function createUnderscore(letter) {
             let space = document.createElement('PARAGRAPH');
@@ -76,10 +88,12 @@
             for (let i = 0; i < word[0].length; i++) {
                 if (word[0][i] === letter) {
                     correctLetters++;
-                    correct = true
+                    correct = true;
+                    score++;
                     let items = [].slice.call(document.getElementsByClassName(letter));
                     for (let j = 0; j < items.length; j++) {
                         items[j].innerHTML = ' ' + letter + ' ';
+                        document.getElementById('score').innerHTML = score;
                     }
                 }
             }
@@ -103,6 +117,12 @@
             }
 
         }
+
+        function resetGame() {
+            score = 0
+            document.getElementById('score').innerHTML = score
+        }
+
 
     </script>
 </body>
