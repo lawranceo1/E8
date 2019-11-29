@@ -1,6 +1,54 @@
 <!DOCTYPE html>
 <html>
-
+<head>
+<style>
+    body {
+        text-align: center;
+        background-color:aliceblue;
+        font-family: courier;
+    }
+    
+    button, #reset {
+        margin-right: 10px;
+        display: inline-block;
+        font-size: 24px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+        transition: 0.3s;
+    }
+    
+    #reset{
+        padding: 15px 20px;
+    }
+          
+    button {
+        width: 50px;
+        text-align: center;
+    }
+    
+    button:hover, #reset:hover{
+        background-color: #3e8e41;
+        cursor: pointer;   
+    }
+    
+    button:active #reset:active{
+        background-color: #3e8e41;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+        
+    #hangman{
+        border: 1px solid black;
+        }    
+</style>    
+</head>
 <body>
     <p id='definition'></p><br><br>
     <p>Score:</p>
@@ -67,6 +115,8 @@
                 if (i === 15) {
                     let br = document.createElement('br');
                     buttons.appendChild(br)
+                    let hr = document.createElement('br');
+                    buttons.appendChild(hr);
                 }
                 let btn = document.createElement("BUTTON");
                 btn.type = 'button';
