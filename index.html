@@ -6,24 +6,21 @@
     <style>
         @media only screen and (max-width: 750px) {
             img#hangman {
-                width: 75%;
+                width: 50%;
                 height: 20%;
             }
 
             #buttonStyle {
                 height: 15%;
-                width: 10%;
+                width: 15%;
+                margin-right: 4px;
+                margin-bottom: 10px;
             }
 
-            p#description {
-                font-size: 18x;
+            p#definition {
+                font-size: 15px;
             }
 
-            button {
-                width: 20px;
-                text-align: center; 
-            }
-            
         }
 
         body {
@@ -77,11 +74,12 @@
         div#solutionspace {
             font-size: 1.7em;
         }
+
     </style>
 </head>
 
 <body>
-    <p id='score'>Score: </p>
+    <p id='score'></p>
     <input type=button id='reset' value='Start Game' onclick=resetGame()><br><br>
     <img src='hangmanimages/start.png' id='hangman' width=300px height=383px>
     <div id='solutionspace'></div><br>
@@ -95,7 +93,7 @@
             "(someone or something that one has seen, known, or experienced in the past)"],
         ["IMPORTANT", "of great significance or value; likely to have a profound effect on success, survival, or well-being"],
         ["CONTAIN", "have or hold (someone or something) within"],
-        ["DECLARE", "say something in a solemn and emphatic manner"],
+        ["DECLARE", "saying something in a solemn and emphatic manner"],
         ["HANGMAN", "a game for two in which one player tries to guess the letters of a word, and failed attempts are recorded" +
             "by drawing a gallows and someone hanging on it, line by line"],
         ["JAVASCRIPT", "an object-oriented computer programming language commonly used to create interactive effects within web browsers"],
@@ -107,10 +105,11 @@
 
         let score = 0
         let buttons = document.getElementById('buttondiv')
-        let lives = 5;
+        let lives = 6;
         let hangmanImage = document.getElementById('hangman')
         let step = 0;
         let correctLetters = 0;
+        let width = window.innerWidth;
 
         function randomWord() {
             // Generating random number within the word bank length
@@ -135,11 +134,13 @@
         function generateButtons(n, lengthOfWord) {
             let asci = 65
             for (let i = 0; i < n; i++) {
-                if (i === 15) {
-                    let br = document.createElement('br');
-                    buttons.appendChild(br)
-                    let hr = document.createElement('br');
-                    buttons.appendChild(hr);
+                if (width > 750) {
+                    if (i === 15) {
+                        let br = document.createElement('br');
+                        buttons.appendChild(br)
+                        let hr = document.createElement('br');
+                        buttons.appendChild(hr);
+                    }
                 }
                 let btn = document.createElement("BUTTON");
                 btn.type = 'button';
@@ -161,8 +162,9 @@
                     score++;
                     let items = [].slice.call(document.getElementsByClassName(letter));
                     for (let j = 0; j < items.length; j++) {
+                        document.getElementById('message').innerHTML = 'Correct letter'
                         items[j].innerHTML = ' ' + letter + ' ';
-                        document.getElementById('score').innerHTML = "Score: " + score;
+                        document.getElementById('score').innerHTML = "Score: " + score + " Lives: " + lives;
                     }
                 }
             }
@@ -170,6 +172,8 @@
             if (correct === false) {
                 step++;
                 lives--;
+                score--;
+                document.getElementById('score').innerHTML = "Score: " + score + " Lives: " + lives;
                 if (step < 6) {
                     document.getElementById('message').innerHTML = 'Incorrect letter'
                     hangmanImage.src = "hangmanimages/step" + step + ".png"
@@ -186,19 +190,19 @@
                 buttons.style.visibility = 'hidden';
                 document.getElementById('reset').value = 'New Round';
                 document.getElementById("definition").style.display = "none"
-                document.getElementById('reset').onclick = function(){continueGame()};
+                document.getElementById('reset').onclick = function () { continueGame() };
 
             }
         }
 
         function continueGame() {
             document.getElementById('reset').value = 'Reset Game';
-            document.getElementById('reset').onclick = function(){resetGame()};
-            lives = 5;
+            document.getElementById('reset').onclick = function () { resetGame() };
+            lives = 6;
             hangmanImage.src = 'hangmanimages/start.png'
             step = 0;
             correctLetters = 0;
-            document.getElementById('score').innerHTML = "Score: " + score;
+            document.getElementById('score').innerHTML = "Score: " + score + " Lives: " + lives;
             buttons.innerHTML = ''
             document.getElementById('solutionspace').innerHTML = ''
             document.getElementById('message').innerHTML = ''
