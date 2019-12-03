@@ -3,79 +3,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        @media only screen and (max-width: 750px) {
-            img#hangman {
-                width: 50%;
-                height: 20%;
-            }
-
-            #buttonStyle {
-                height: 15%;
-                width: 15%;
-                margin-right: 4px;
-                margin-bottom: 10px;
-            }
-
-            p#definition {
-                font-size: 15px;
-            }
-
-        }
-
-        body {
-            text-align: center;
-            background-color: aliceblue;
-            font-family: courier;
-        }
-
-        button,
-        #reset {
-            margin-right: 5px;
-            display: inline-block;
-            font-size: 24px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            outline: none;
-            color: #fff;
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 9px #999;
-            transition: 0.3s;
-        }
-
-        #reset {
-            padding: 15px 20px;
-        }
-
-        button {
-            width: 40px;
-            text-align: center;
-        }
-
-        button:hover,
-        #reset:hover {
-            background-color: #3e8e41;
-            cursor: pointer;
-        }
-
-        button:active #reset:active {
-            background-color: #3e8e41;
-            box-shadow: 0 5px #666;
-            transform: translateY(4px);
-        }
-
-        #hangman {
-            border: 1px solid black;
-        }
-
-        div#solutionspace {
-            font-size: 1.7em;
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="hangmanStyle.css">
 </head>
 
 <body>
@@ -102,7 +30,6 @@
         ["TATTOO", "a mark, figure, design, or word intentionally fixed or placed on the skin"],
         ["ELECTRICITY", "a form of energy resulting from the existence of charged particles (such as electrons or protons), either statically" +
             "as an accumulation of charge or dynamically as a current"]]
-
         let score = 0
         let buttons = document.getElementById('buttondiv')
         let lives = 6;
@@ -110,7 +37,6 @@
         let step = 0;
         let correctLetters = 0;
         let width = window.innerWidth;
-
         function randomWord() {
             // Generating random number within the word bank length
             word = words[Math.floor(Math.random() * ((words.length - 1) + 1))]
@@ -122,7 +48,6 @@
             }
             generateButtons(26, wordLength)
         }
-
         function createUnderscore(letter) {
             let space = document.createElement('PARAGRAPH');
             document.getElementById('solutionspace').appendChild(space)
@@ -130,7 +55,6 @@
             space.innerHTML = ' _ '
             space.className = letter
         }
-
         function generateButtons(n, lengthOfWord) {
             let asci = 65
             for (let i = 0; i < n; i++) {
@@ -151,7 +75,6 @@
                 asci++;
             }
         }
-
         function checkUserChoice(innerHTML, wordLength) {
             letter = innerHTML;
             let correct = false;
@@ -168,7 +91,6 @@
                     }
                 }
             }
-
             if (correct === false) {
                 step++;
                 lives--;
@@ -191,10 +113,8 @@
                 document.getElementById('reset').value = 'New Round';
                 document.getElementById("definition").style.display = "none"
                 document.getElementById('reset').onclick = function () { continueGame() };
-
             }
         }
-
         function continueGame() {
             document.getElementById('reset').value = 'Reset Game';
             document.getElementById('reset').onclick = function () { resetGame() };
@@ -210,12 +130,10 @@
             document.getElementById("definition").style.display = "contents"
             randomWord(26)
         }
-
         function resetGame() {
             score = 0
             continueGame()
         }
-
     </script>
 </body>
 
